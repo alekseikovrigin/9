@@ -1,0 +1,33 @@
+{
+  "name": "alekseikovrigin/qubixqueries",
+  "description": "Quick Bitrix Queries",
+  "type": "library",
+  "require": {
+    "php": "^7.1|^8.0",
+    "illuminate/container": "^8.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aleksei Kovrigin",
+      "email": "kovrigin@inetris.ru"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "mockery/mockery": "^1.4",
+    "phpstan/phpstan": "^1.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "alekseikovrigin\\qubixqueries\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vendor\\PackageName\\ServiceProvider"
+      ]
+    }
+  }
+}
