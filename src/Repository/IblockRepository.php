@@ -1,12 +1,14 @@
 <?php
 namespace alekseikovrigin\qubixqueries\Repository;
+
+use Bitrix\Iblock\IblockTable;
+use Bitrix\Iblock\PropertyTable;
 use Bitrix\Main\Entity;
 
 class IblockRepository implements IblockRepositoryInterface
 {
-    public function getProperties($params = array()): array
+    public function getProperties(array $params): array
     {
-        $arProps = array();
         $runtime = array(
             new Entity\ReferenceField(
                 'SECTION_PROPERTY',
@@ -16,7 +18,7 @@ class IblockRepository implements IblockRepositoryInterface
             )
         );
 
-        $arProps = \Bitrix\Iblock\PropertyTable::getList(array(
+        return PropertyTable::getList(array(
             'select' => array(
                 "ID", "IBLOCK_ID", "NAME", "CODE", "MULTIPLE", "USER_TYPE", "PROPERTY_TYPE",
                 'SECTION_PROPERTY_SMART_FILTER' => 'SECTION_PROPERTY.SMART_FILTER'
@@ -24,14 +26,12 @@ class IblockRepository implements IblockRepositoryInterface
             'filter' => $params,
             'runtime' => $runtime
         ))->fetchAll();
-
-        return $arProps;
     }
 
-    public function getIblockId(string $apiCode): array
+    public function getIblockId(string $iblockApiCode): array
     {
-        return \Bitrix\Iblock\IblockTable::getList(
-            ['filter' => array('API_CODE' => $apiCode)]
+        return IblockTable::getList(
+            ['filter' => array('API_CODE' => $iblockApiCode)]
         )->fetch();
     }
 }

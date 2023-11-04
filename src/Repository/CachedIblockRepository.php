@@ -2,24 +2,24 @@
 
 namespace alekseikovrigin\qubixqueries\Repository;
 
-use \Bitrix\Main\Data\Cache;
-use \Bitrix\Main\Application;
-use \Bitrix\Main\Diag;
+use CPHPCache;
 
 class CachedIblockRepository implements IblockRepositoryInterface
 {
     /**
-     * @var IReceivable
+     * @var IblockRepositoryInterface
      */
     private $receiver;
-
-
+    private $cache;
+    private $cacheTime;
+    private $cachePath;
 
     public function __construct(IblockRepositoryInterface $receiver)
     {
         $this->receiver = $receiver;
-        $this->cache = new \CPHPCache();
+        $this->cache = new CPHPCache();
         $this->cacheTime = 3600;
+        $this->cachePath = "/qubixqueries";
     }
 
     public function getProperties(array $params): array
@@ -36,7 +36,7 @@ class CachedIblockRepository implements IblockRepositoryInterface
         return [];
     }
 
-    public function getIblockId(string $apiCode): array
+    public function getIblockId(string $iblockApiCode): array
     {
         $cacheId = md5('getIblockId' . $iblockApiCode);
 
